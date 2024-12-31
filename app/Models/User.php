@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'role',
         'email',
         'password',
     ];
@@ -39,7 +39,16 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function eleve()
+    {
+        return $this->hasOne(Eleves::class,"email",localKey:"email");
+    }
+
+    public function professeur()
+    {
+        return $this->hasOne(Professeurs::class,"email",localKey:"email");
+    }
 }

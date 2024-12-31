@@ -14,6 +14,10 @@ class modules extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+    return[
+        'code' => $this->code,
+        'nom' => $this->nom,
+        'coef' => $this->coef,
+    ];
     }
 }

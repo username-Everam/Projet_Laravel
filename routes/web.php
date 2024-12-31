@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ElevesController;
+use App\Http\Controllers\EvaluationEleveController;
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +23,23 @@ use App\Http\Controllers\ElevesController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
-Route::resource('eleves', ElevesController::class);
-Route::post('/eleves', [ElevesController::class, 'store'])->name('eleves.store');
+Route::resource('modules', ModuleController::class)->middleware('auth');
+Route::resource('eleves', ElevesController::class)->middleware('auth'); // Cela génère toutes les routes nécessaires
+Route::resource(name: 'evaluationEleves', controller: EvaluationEleveController::class)->middleware('auth');// Cela génère toutes les routes nécessaires
+Route::resource(name:"evaluations", controller:EvaluationController::class)->middleware('auth'); // Cela génère toutes les routes nécessaires
+Route::resource(name:'user', controller:UserController::class)->middleware('auth'); // Cela génère toutes les routes nécessaires
+//Routes custom
+Route::get('evaluations/{id}/below10', [EvaluationEleveController::class, 'below10ByEval'])->name('evaluationEleves.below10ByEval')->middleware('auth');
+Route::post("/loginAttempt", [LoginController::class, 'authenticate'])->name('loginAttempt');
+
+
+Route::get('login', function () {
+    return view('login');
+})->name('login');
+
+Route::get("register", function () {
+    return view('register');
+});
+Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');

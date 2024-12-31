@@ -1,48 +1,47 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un élève</title>
-</head>
-<body>
-    <style>
-        .container {
-            width: 50%;
-            margin: 0 auto;
-        }
-    </style>
-    <button><a href="{{ route('eleves.index') }}">Retour</a></button>
-    <div class="container">
-        <h1>Ajouter un élève</h1>
-        <form action="{{ route('eleves.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="nom">Nom:</label>
-                <input type="text" id="nom" name="nom" class="form-control" required>
+@extends('layouts.app')
+
+@section('title', 'Créer une Nouvelle Évaluation')
+@section('content')
+<div class="max-w-2xl mx-auto bg-gray-900 shadow-lg rounded-lg p-6 mt-10">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Créer une Évaluation</h1>
+    <form class="space-y-8" method="POST" action="{{ route('eleves.store') }}">
+        @csrf
+        <!-- Nom de l'évaluation -->
+        <div class="flex flex-col">
+            <label for="nomEvaluation" class="mb-2 text-sm font-semibold text-gray-400">Nom de l'Évaluation</label>
+            <input type="text" id="nomEvaluation" name="nomEvaluation" 
+                class="border border-gray-700 rounded-md p-3 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                placeholder="Entrez le nom" required>
+        </div>
+        <!-- Date -->
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-grow">
+                <label for="dateEvaluation" class="mb-2 text-sm font-semibold text-gray-400">Date</label>
+                <input type="date" id="dateEvaluation" name="dateEvaluation" 
+                    class="border border-gray-700 rounded-md p-3 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                    required>
             </div>
-            <div class="form-group">
-                <label for="prenom">Prénom:</label>
-                <input type="text" id="prenom" name="prenom" class="form-control" required>
+            <div class="flex-grow">
+                <label for="dureeEvaluation" class="mb-2 text-sm font-semibold text-gray-400">Durée (minutes)</label>
+                <input type="number" id="dureeEvaluation" name="dureeEvaluation" 
+                    class="border border-gray-700 rounded-md p-3 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                    placeholder="Ex: 60" required>
             </div>
-            <div class="form-group">
-                <label for="date_Naissance">Date de Naissance:</label>
-                <input type="date" id="date_Naissance" name="date_Naissance" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="num_etudiant">Numéro étudiant:</label>
-                <input type="text" id="num_etudiant" name="num_etudiant" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="image">Image:</label>
-                <input type="file" id="image" name="image" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
-        </form>
-    </div>
-</body>
-</html>
+        </div>
+        <!-- Description -->
+        <div class="flex flex-col">
+            <label for="description" class="mb-2 text-sm font-semibold text-gray-400">Description</label>
+            <textarea id="description" name="description" rows="4" 
+                class="border border-gray-700 rounded-md p-3 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                placeholder="Entrez une description..."></textarea>
+        </div>
+        <!-- Boutons -->
+        <div class="flex justify-between items-center">
+            <button type="reset" 
+                class="px-6 py-3 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold">Réinitialiser</button>
+            <button type="submit" 
+                class="px-6 py-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-semibold shadow-lg">Créer</button>
+        </div>
+    </form>
+</div>
+@endsection

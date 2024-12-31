@@ -60,9 +60,10 @@ class ElevesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)  
     {
-        return view('eleves.edit', ['eleves' => Eleves::findOrFail($id)]);
+        $eleve = Eleves::findOrFail($id);
+        return view('eleves.edit', compact('eleve'));
     }
 
     /**

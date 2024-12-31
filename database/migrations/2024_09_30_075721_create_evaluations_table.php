@@ -9,13 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::dropIfExists(('evaluations'));
+        Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('nom');
+            $table->date('date');
+            $table->string('titre');
             $table->integer('coef');
+            $table->foreignId('module_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('evaluations');
     }
 };

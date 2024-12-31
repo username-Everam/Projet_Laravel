@@ -7,10 +7,8 @@
     class CreateElevesTable extends Migration
     {
         /**
-            * Run the migrations.
-            *
-            * @return void
-            */
+        * Run the migrations.
+        */
         public function up()
         {
             Schema::create('eleves', function (Blueprint $table) {
@@ -26,10 +24,8 @@
         }
 
         /**
-            * Reverse the migrations.
-            *
-            * @return void
-            */
+        * Reverse the migrations.
+        */
         public function down()
         {
             Schema::dropIfExists('eleves');

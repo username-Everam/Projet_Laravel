@@ -9,13 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('professeurs', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
             $table->string('nom');
-            $table->integer('coef');
+            $table->string('prenom');
+            $table->date('date_Naissance');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('professeurs');
     }
 };
